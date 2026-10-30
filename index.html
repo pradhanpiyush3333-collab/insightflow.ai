@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>InsightFlow AI | Sales Dashboard</title>
+
+  <!-- Font (falls back to system fonts if offline) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Our styles -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ===== Top bar: project name + demo badge ===== -->
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-logo" aria-hidden="true">IF</span>
+      <div>
+        <h1>InsightFlow AI</h1>
+        <p>Sales analytics dashboard</p>
+      </div>
+    </div>
+    <span class="badge">Demonstration data</span>
+  </header>
+
+  <main class="container">
+
+    <!-- Clear label so nobody mistakes the numbers for real sales -->
+    <p class="notice">
+      The figures below are calculated from <strong>sample demonstration data</strong>,
+      not real business results.
+    </p>
+
+    <!-- ===== Summary cards (values are filled in by script.js) ===== -->
+    <section class="cards" aria-label="Summary metrics">
+      <article class="card">
+        <p class="card-label">Total Revenue</p>
+        <p class="card-value" id="total-revenue">--</p>
+        <p class="card-note">Quantity × unit price, all orders</p>
+      </article>
+
+      <article class="card">
+        <p class="card-label">Total Orders</p>
+        <p class="card-value" id="total-orders">--</p>
+        <p class="card-note">Number of orders in the dataset</p>
+      </article>
+
+      <article class="card">
+        <p class="card-label">Total Profit</p>
+        <p class="card-value" id="total-profit">--</p>
+        <p class="card-note">Revenue minus product cost</p>
+      </article>
+    </section>
+
+    <!-- ===== Chart + table ===== -->
+    <section class="grid">
+      <div class="panel panel-wide">
+        <h2>Monthly sales</h2>
+        <p class="panel-sub">Revenue and profit by month (demonstration data)</p>
+        <div class="chart-box">
+          <canvas id="sales-chart"></canvas>
+        </div>
+        <p class="error-text" id="chart-error" hidden>
+          The chart could not load. Check your internet connection (Chart.js loads from a CDN) and refresh.
+        </p>
+      </div>
+
+      <div class="panel">
+        <h2>Top 5 products</h2>
+        <p class="panel-sub">Ranked by units sold</p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Product</th>
+                <th class="num">Units</th>
+                <th class="num">Revenue</th>
+              </tr>
+            </thead>
+            <tbody id="top-products-body">
+              <!-- Rows are created by script.js -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CSV upload (reads the file only; analysis comes later) ===== -->
+    <section class="panel upload">
+      <h2>Upload your sales data</h2>
+      <p class="panel-sub">
+        Choose a CSV file with these columns:
+        <code>date,product,quantity,unitPrice,unitCost</code>
+        (date format: YYYY-MM-DD). The dashboard does not analyse it yet.
+      </p>
+      <label class="file-label" for="csv-input">Choose CSV file</label>
+      <input type="file" id="csv-input" accept=".csv">
+      <p class="status" id="upload-status" role="status"></p>
+    </section>
+
+  </main>
+
+  <footer class="footer">InsightFlow AI · Portfolio project · Demonstration data only</footer>
+
+  <!-- Chart.js library first, then our script (order matters) -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
